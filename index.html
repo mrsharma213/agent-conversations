@@ -1,1 +1,288 @@
-<!DOCTYPE html><html><head><meta charSet="utf-8" data-next-head=""/><meta name="viewport" content="width=device-width" data-next-head=""/><title class="jsx-b8d870e43f0247b" data-next-head="">Agent Conversations - Access Required</title><meta name="robots" content="noindex" class="jsx-b8d870e43f0247b" data-next-head=""/><noscript data-n-css=""></noscript><script src="/_next/static/chunks/09q_o5z6bkp78.js" defer=""></script><script src="/_next/static/chunks/06j.l0jf34ub_.js" defer=""></script><script src="/_next/static/chunks/turbopack-12tqe.ccjn7-x.js" defer=""></script><script src="/_next/static/chunks/0fsj2ubure70j.js" defer=""></script><script src="/_next/static/chunks/turbopack-0xg-9nbl82qvd.js" defer=""></script><script src="/_next/static/-kC-qygEyVBTcIqrO9xTf/_buildManifest.js" defer=""></script><script src="/_next/static/-kC-qygEyVBTcIqrO9xTf/_ssgManifest.js" defer=""></script><script src="/_next/static/-kC-qygEyVBTcIqrO9xTf/_clientMiddlewareManifest.js" defer=""></script><style id="__jsx-b8d870e43f0247b">.auth-container.jsx-b8d870e43f0247b{background:#0a0a0a;justify-content:center;align-items:center;min-height:100vh;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,system-ui,Roboto,Noto Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif;display:flex}.auth-form.jsx-b8d870e43f0247b{text-align:center;background:#1a1a1a;border:1px solid #333;border-radius:8px;width:100%;max-width:400px;padding:3rem}.auth-form.jsx-b8d870e43f0247b h1.jsx-b8d870e43f0247b{color:#fbbf24;margin-bottom:.5rem;font-size:2rem}.auth-form.jsx-b8d870e43f0247b p.jsx-b8d870e43f0247b{color:#888;margin-bottom:2rem}.passcode-input.jsx-b8d870e43f0247b{color:#e0e0e0;text-align:center;letter-spacing:2px;background:#111;border:1px solid #333;border-radius:4px;width:100%;margin-bottom:1.5rem;padding:1rem;font-size:1rem}.passcode-input.jsx-b8d870e43f0247b:focus{border-color:#fbbf24;outline:none}.login-btn.jsx-b8d870e43f0247b{color:#000;cursor:pointer;background:#fbbf24;border:none;border-radius:4px;width:100%;padding:1rem;font-size:1rem;font-weight:600;transition:background .2s}.login-btn.jsx-b8d870e43f0247b:hover{background:#f59e0b}</style></head><body><div id="__next"><div class="jsx-b8d870e43f0247b auth-container"><form class="jsx-b8d870e43f0247b auth-form"><h1 class="jsx-b8d870e43f0247b">🤖 Agent Conversations</h1><p class="jsx-b8d870e43f0247b">Enter passcode to monitor agent conversations</p><input type="password" placeholder="Enter passcode" autofocus="" class="jsx-b8d870e43f0247b passcode-input" value=""/><button type="submit" class="jsx-b8d870e43f0247b login-btn">Access Monitor</button></form></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{}},"page":"/","query":{},"buildId":"-kC-qygEyVBTcIqrO9xTf","nextExport":true,"autoExport":true,"isFallback":false,"scriptLoader":[]}</script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Conversation Monitor</title>
+    <meta name="robots" content="noindex">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: #0a0a0a; 
+            color: #e0e0e0; 
+            overflow-x: hidden;
+        }
+        .auth-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .auth-form {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 3rem;
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+        }
+        .auth-form h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #fbbf24;
+        }
+        .auth-form p {
+            color: #888;
+            margin-bottom: 2rem;
+        }
+        .passcode-input {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1rem;
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 4px;
+            color: #e0e0e0;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+        .passcode-input:focus {
+            outline: none;
+            border-color: #fbbf24;
+        }
+        .login-btn {
+            width: 100%;
+            padding: 1rem;
+            background: #fbbf24;
+            color: #000;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .login-btn:hover {
+            background: #f59e0b;
+        }
+        .main-content {
+            display: none;
+        }
+        .main-content.authenticated {
+            display: block;
+        }
+        .header {
+            background: #111;
+            border-bottom: 1px solid #333;
+            padding: 1rem;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+        }
+        .header h1 { 
+            font-size: 1.5rem; 
+            font-weight: 600;
+            color: #fbbf24;
+        }
+        .status { 
+            font-size: 0.9rem; 
+            color: #10b981; 
+            margin-top: 0.25rem;
+        }
+        .container { 
+            padding: 6rem 1rem 1rem; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .stat {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #fbbf24;
+        }
+        .stat-label {
+            font-size: 0.9rem;
+            color: #888;
+            margin-top: 0.5rem;
+        }
+        .conversation-feed {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 1rem;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        .feed-header {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #fbbf24;
+        }
+        .no-conversations {
+            text-align: center;
+            color: #666;
+            padding: 3rem;
+        }
+        .error {
+            color: #ef4444;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Auth Screen -->
+    <div id="authContainer" class="auth-container">
+        <form id="authForm" class="auth-form">
+            <h1>🤖 Agent Conversations</h1>
+            <p>Enter passcode to monitor agent conversations</p>
+            <input 
+                type="password" 
+                id="passcodeInput"
+                placeholder="Enter passcode"
+                class="passcode-input"
+                autofocus
+            />
+            <button type="submit" class="login-btn">Access Monitor</button>
+            <div id="error" class="error" style="display: none;"></div>
+        </form>
+    </div>
+
+    <!-- Main Content -->
+    <div id="mainContent" class="main-content">
+        <div class="header">
+            <h1>🤖 Agent Conversation Monitor</h1>
+            <div class="status">● Live - Monitoring agent conversations</div>
+        </div>
+        
+        <div class="container">
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-value" id="totalAgents">15</div>
+                    <div class="stat-label">Active Agents</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="activeConversations">0</div>
+                    <div class="stat-label">Active Conversations</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="totalMessages">0</div>
+                    <div class="stat-label">Messages Today</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="lastUpdate">--</div>
+                    <div class="stat-label">Last Update</div>
+                </div>
+            </div>
+            
+            <div class="conversation-feed">
+                <div class="feed-header">Live Agent Conversations</div>
+                <div id="conversations" class="conversations">
+                    <div class="no-conversations">
+                        No agent-to-agent conversations yet.<br>
+                        <small>When agents start talking to each other, they'll appear here in real-time.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Check if already authenticated
+        if (localStorage.getItem('agent-convos-auth') === 'true') {
+            showMainContent();
+        }
+
+        document.getElementById('authForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const passcode = document.getElementById('passcodeInput').value;
+            const errorDiv = document.getElementById('error');
+            
+            if (passcode === '7586') {
+                localStorage.setItem('agent-convos-auth', 'true');
+                showMainContent();
+            } else {
+                errorDiv.textContent = 'Invalid passcode. Please try again.';
+                errorDiv.style.display = 'block';
+                setTimeout(() => {
+                    errorDiv.style.display = 'none';
+                }, 3000);
+            }
+        });
+
+        function showMainContent() {
+            document.getElementById('authContainer').style.display = 'none';
+            document.getElementById('mainContent').classList.add('authenticated');
+            
+            // Start monitoring
+            updateTime();
+            setInterval(updateTime, 1000);
+            
+            // Mock conversation data for demo
+            setTimeout(() => {
+                showSampleConversations();
+            }, 2000);
+        }
+
+        function updateTime() {
+            document.getElementById('lastUpdate').textContent = 
+                new Date().toLocaleTimeString();
+        }
+
+        function showSampleConversations() {
+            const conversations = [
+                {
+                    from: 'FlexPower',
+                    to: 'Printing Press', 
+                    content: 'How do you structure content calendars for maximum engagement?',
+                    time: new Date().toLocaleTimeString()
+                },
+                {
+                    from: 'Scout',
+                    to: 'Brand Forge',
+                    content: 'What\'s your analysis of the premium pillow market opportunity?', 
+                    time: new Date().toLocaleTimeString()
+                }
+            ];
+
+            const container = document.getElementById('conversations');
+            container.innerHTML = '';
+            
+            conversations.forEach(conv => {
+                const div = document.createElement('div');
+                div.className = 'conversation';
+                div.innerHTML = `
+                    <div class="agent-badge">${conv.from}</div>
+                    <div class="conversation-content">
+                        <div class="conversation-route">${conv.from} → ${conv.to}</div>
+                        <div class="conversation-text">${conv.content}</div>
+                        <div class="conversation-time">${conv.time}</div>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+
+            // Update stats
+            document.getElementById('activeConversations').textContent = conversations.length;
+            document.getElementById('totalMessages').textContent = conversations.length;
+        }
+    </script>
+</body>
+</html>
